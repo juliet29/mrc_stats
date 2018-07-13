@@ -1,0 +1,1641 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Mauritius GDP Stats}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}339}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{DataFrame}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{style}
+          \PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k+kn}{import} \PY{n+nn}{locale}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}340}]:} \PY{k+kn}{from} \PY{n+nn}{locale} \PY{k}{import} \PY{n}{atof}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}341}]:} \PY{n}{locale}\PY{o}{.}\PY{n}{setlocale}\PY{p}{(}\PY{n}{locale}\PY{o}{.}\PY{n}{LC\PYZus{}NUMERIC}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}341}]:} 'en\_US.UTF-8'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}358}]:} \PY{n}{df\PYZus{}2006} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GDP\PYZus{}2006\PYZus{}16.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thousands}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006} \PY{o}{=} \PY{n}{df\PYZus{}2006}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006} \PY{o}{=} \PY{n}{df\PYZus{}2006}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Table of contents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006} \PY{o}{=} \PY{n}{df\PYZus{}2006}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2006}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2007}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2009}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2011}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2012}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2013}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2015}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006} \PY{o}{=} \PY{n}{df\PYZus{}2006}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{df\PYZus{}2006\PYZus{}t} \PY{o}{=} \PY{n}{df\PYZus{}2006}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006\PYZus{}t}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}358}]:} Table   Agriculture, forestry and fishing          Sugarcane          Other  \textbackslash{}
+          2006                                 9521               4869           4653   
+          2007                                 9464               4334           5130   
+          2008                                 9714               4230           5484   
+          2009                                 9539               3489           6050   
+          2010                                 9438               3050           6388   
+          2011                                10253               3599           6654   
+          2012                                10494               3696           6797   
+          2013                                10405               3238           7167   
+          2014                                10853               3114           7739   
+          2015                            10,308              2,771          7,537      
+          2016                            10,873              2,877          7,996      
+          
+          Table   Mining and quarrying   Manufacturing         Sugar  \textbackslash{}
+          2006                     832           35268          1308   
+          2007                     880           39462          1175   
+          2008                    1038           44817          1141   
+          2009                    1040           44908           988   
+          2010                    1173           45180           884   
+          2011                    1041           48182          1040   
+          2012                    1000           50537          1071   
+          2013                     990           55021           958   
+          2014                     975           56458           780   
+          2015                  970          57,629           718      
+          2016                1,019          60,091           744      
+          
+          Table         Food exc Sugar         Textiles         Other  \textbackslash{}
+          2006                    9985            13204         10771   
+          2007                   11979            14862         11446   
+          2008                   15611            14165         13899   
+          2009                   15444            14464         14013   
+          2010                   15917            13967         14412   
+          2011                   17230            14555         15357   
+          2012                   19842            14721         14902   
+          2013                   21194            15875         16994   
+          2014                   20938            16919         17821   
+          2015               21,149           17,838        17,924      
+          2016               22,285           18,250        18,812      
+          
+          Table   Electricity, gas, steam and  air conditioning supply  \textbackslash{}
+          2006                                                2528       
+          2007                                                2623       
+          2008                                                3947       
+          2009                                                4786       
+          2010                                                4729       
+          2011                                                4491       
+          2012                                                4092       
+          2013                                                4491       
+          2014                                                5288       
+          2015                                            5,320          
+          2016                                            5,856          
+          
+          Table              {\ldots}                \textbackslash{}
+          2006               {\ldots}                 
+          2007               {\ldots}                 
+          2008               {\ldots}                 
+          2009               {\ldots}                 
+          2010               {\ldots}                 
+          2011               {\ldots}                 
+          2012               {\ldots}                 
+          2013               {\ldots}                 
+          2014               {\ldots}                 
+          2015               {\ldots}                 
+          2016               {\ldots}                 
+          
+          Table   Administrative and support service activities                                                    \textbackslash{}
+          2006                                                3720                                                  
+          2007                                                4530                                                  
+          2008                                                5110                                                  
+          2009                                                5480                                                  
+          2010                                                6053                                                  
+          2011                                                6840                                                  
+          2012                                                7640                                                  
+          2013                                                8493                                                  
+          2014                                                9418                                                  
+          2015                                           10,138                                                     
+          2016                                           11,068                                                     
+          
+          Table   Public administration and defence; compulsory social security                                                      \textbackslash{}
+          2006                                               11650                                                                    
+          2007                                               12041                                                                    
+          2008                                               13780                                                                    
+          2009                                               15322                                                                    
+          2010                                               16159                                                                    
+          2011                                               17189                                                                    
+          2012                                               17984                                                                    
+          2013                                               21283                                                                    
+          2014                                               22784                                                                    
+          2015                                           23,705                                                                       
+          2016                                           26,435                                                                       
+          
+          Table   Education   Human health and social work activities  \textbackslash{}
+          2006         8284                                      6063   
+          2007         8965                                      6614   
+          2008        10283                                      7618   
+          2009        11098                                      8810   
+          2010        11706                                      9529   
+          2011        12622                                     10583   
+          2012        13413                                     11698   
+          2013        15428                                     13768   
+          2014        16290                                     15247   
+          2015    17,097                                    16,426      
+          2016    18,927                                    18,075      
+          
+          Table   Arts, entertainment and recreation   Other service activities  \textbackslash{}
+          2006                                  3775                       2738   
+          2007                                  4346                       3182   
+          2008                                  5435                       3645   
+          2009                                  6263                       3870   
+          2010                                  6843                       4355   
+          2011                                  7825                       5021   
+          2012                                  8826                       5566   
+          2013                                  9903                       6119   
+          2014                                 10912                       6644   
+          2015                             11,603                      7,039      
+          2016                             12,521                      7,526      
+          
+          Table   Gross Value Added (GVA) at basic prices  \textbackslash{}
+          2006                                     189125   
+          2007                                     215449   
+          2008                                     243115   
+          2009                                     251615   
+          2010                                     265214   
+          2011                                     285280   
+          2012                                     302617   
+          2013                                     322937   
+          2014                                     342179   
+          2015                                 357,190      
+          2016                                 382,945      
+          
+          Table   Taxes on products (net of subsidies)  \textbackslash{}
+          2006                                   24319   
+          2007                                   28549   
+          2008                                   31201   
+          2009                                   30739   
+          2010                                   33957   
+          2011                                   38030   
+          2012                                   41325   
+          2013                                   43388   
+          2014                                   44051   
+          2015                               46,346      
+          2016                               48,878      
+          
+          Table   Gross Domestic Product at market  prices  \textbackslash{}
+          2006                                      213444   
+          2007                                      243998   
+          2008                                      274316   
+          2009                                      282354   
+          2010                                      299171   
+          2011                                      323310   
+          2012                                      343942   
+          2013                                      366325   
+          2014                                      386229   
+          2015                                  403,536      
+          2016                                  431,823      
+          
+          Table   Export oriented enterprises3  
+          2006                           15004  
+          2007                           17555  
+          2008                           17573  
+          2009                           17176  
+          2010                           17155  
+          2011                           17754  
+          2012                           18834  
+          2013                           20011  
+          2014                           20395  
+          2015                       20,818     
+          2016                       21,357     
+          
+          [11 rows x 35 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}343}]:} \PY{n}{col\PYZus{}list1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agriculture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mining}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manufacturing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{power}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{government}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sevices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp\PYZus{}market\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006\PYZus{}t}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{col\PYZus{}list1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}344}]:} \PY{n}{df\PYZus{}2006\PYZus{}t}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df\PYZus{}2006\PYZus{}t}  
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}344}]:}      agriculture    mining manufacturing     power government   sevices  \textbackslash{}
+          2006        9521       832         35268      2528      11650      2738   
+          2007        9464       880         39462      2623      12041      3182   
+          2008        9714      1038         44817      3947      13780      3645   
+          2009        9539      1040         44908      4786      15322      3870   
+          2010        9438      1173         45180      4729      16159      4355   
+          2011       10253      1041         48182      4491      17189      5021   
+          2012       10494      1000         50537      4092      17984      5566   
+          2013       10405       990         55021      4491      21283      6119   
+          2014       10853       975         56458      5288      22784      6644   
+          2015   10,308       970        57,629     5,320     23,705     7,039      
+          2016   10,873     1,019        60,091     5,856     26,435     7,526      
+          
+               gdp\_market\_price  
+          2006           213444  
+          2007           243998  
+          2008           274316  
+          2009           282354  
+          2010           299171  
+          2011           323310  
+          2012           343942  
+          2013           366325  
+          2014           386229  
+          2015       403,536     
+          2016       431,823     
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}345}]:} \PY{n}{df\PYZus{}99} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GDP\PYZus{}99\PYZus{}10 .csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thousands}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}99} \PY{o}{=} \PY{n}{df\PYZus{}99}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}99} \PY{o}{=} \PY{n}{df\PYZus{}99}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table 3 \PYZhy{} Gross Domestic Product by industry group at current basic prices, 1999 \PYZhy{} 2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}99} \PY{o}{=} \PY{n}{df\PYZus{}99}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}99} \PY{o}{=} \PY{n}{df\PYZus{}99}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1999}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2001}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2002}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2003}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2004}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2005}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2006}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2007}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2009}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}99\PYZus{}t} \PY{o}{=} \PY{n}{df\PYZus{}99}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}99\PYZus{}t}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}345}]:} Table    Agriculture, hunting, forestry and fishing          Sugarcane  \textbackslash{}
+          1999                                           5466               2253   
+          2000                                           6984               3499   
+          2001                                           8262               4422   
+          2002                                           7530               3651   
+          2003                                           8403               4287   
+          2004                                           9545               5073   
+          2005                                           9527               5031   
+          2006                                           9759               4869   
+          2007                                           9653               4334   
+          2008                                           9942               4230   
+          2009                                       9,800              3,489      
+          2010                                           9677               3050   
+          
+          Table          Other    Mining and quarrying    Manufacturing          Sugar  \textbackslash{}
+          1999            3213                     159            22043            546   
+          2000            3485                     163            24171            840   
+          2001            3840                     156            26934           1436   
+          2002            3879                      99            27654           1271   
+          2003            4116                      88            29260           1359   
+          2004            4472                      90            31725           1624   
+          2005            4497                      88            32331           1327   
+          2006            4890                      85            36818           1308   
+          2007            5319                      79            41409           1175   
+          2008            5712                     108            47128           1141   
+          2009        6,311                     101           47,325            988      
+          2010            6627                     107            47764            884   
+          
+          Table         Food exc Sugar         Textiles        Other  \textbackslash{}
+          1999                    3948            11383         6166   
+          2000                    4223            12367         6741   
+          2001                    4672            13294         7532   
+          2002                    5124            12609         8650   
+          2003                    6345            12207         9349   
+          2004                    7231            12279        10591   
+          2005                    8307            11509        11188   
+          2006                   10193            12934        12383   
+          2007                   12226            14692        13316   
+          2008                   15943            13882        16162   
+          2009               16,021           14,214       16,102      
+          2010                   16557            13640        16683   
+          
+          Table    Electricity , gas  and  water supply              {\ldots}               \textbackslash{}
+          1999                                     1368              {\ldots}                
+          2000                                     1760              {\ldots}                
+          2001                                     2578              {\ldots}                
+          2002                                     2947              {\ldots}                
+          2003                                     3368              {\ldots}                
+          2004                                     3505              {\ldots}                
+          2005                                     3228              {\ldots}                
+          2006                                     3239              {\ldots}                
+          2007                                     3321              {\ldots}                
+          2008                                     4590              {\ldots}                
+          2009                                 5,398                 {\ldots}                
+          2010                                     5401              {\ldots}                
+          
+          Table          Owner occupied dwellings          Other  \textbackslash{}
+          1999                               4196           4010   
+          2000                               4458           4553   
+          2001                               4989           5228   
+          2002                               5538           5810   
+          2003                               6672           6624   
+          2004                               7245           7758   
+          2005                               7811           8661   
+          2006                               8702          10517   
+          2007                               9633          13151   
+          2008                              10832          16426   
+          2009                          11,168         18,608      
+          2010                              11725          20920   
+          
+          Table   Public administration and defence; compulsory social security                                                      \textbackslash{}
+          1999                                                6095                                                                    
+          2000                                                6693                                                                    
+          2001                                                7132                                                                    
+          2002                                                7764                                                                    
+          2003                                                8991                                                                    
+          2004                                               10098                                                                    
+          2005                                               10908                                                                    
+          2006                                               11650                                                                    
+          2007                                               12041                                                                    
+          2008                                               13780                                                                    
+          2009                                           15,322                                                                       
+          2010                                               16159                                                                    
+          
+          Table   Education   Health and social work  \textbackslash{}
+          1999         4122                     2728   
+          2000         4637                     2990   
+          2001         4980                     3236   
+          2002         5462                     3680   
+          2003         6104                     4272   
+          2004         6880                     4950   
+          2005         7537                     5433   
+          2006         8268                     6143   
+          2007         8947                     6712   
+          2008        10273                     7729   
+          2009    11,085                    8,936      
+          2010        11686                     9694   
+          
+          Table Other  community, social and personal service activities and private households with employed persons  \textbackslash{}
+          1999                                                3127                                                      
+          2000                                                3484                                                      
+          2001                                                3776                                                      
+          2002                                                4250                                                      
+          2003                                                4771                                                      
+          2004                                                5378                                                      
+          2005                                                6035                                                      
+          2006                                                7013                                                      
+          2007                                                8240                                                      
+          2008                                                9805                                                      
+          2009                                           10,857                                                         
+          2010                                               12050                                                      
+          
+          Table   Gross Domestic Product at basic prices  \textbackslash{}
+          1999                                     95265   
+          2000                                    107325   
+          2001                                    119779   
+          2002                                    127996   
+          2003                                    142485   
+          2004                                    157735   
+          2005                                    168217   
+          2006                                    189125   
+          2007                                    215449   
+          2008                                    243115   
+          2009                                251,615      
+          2010                                    264828   
+          
+          Table   Taxes on products (net of subsidies)  \textbackslash{}
+          1999                                   14135   
+          2000                                   15085   
+          2001                                   14613   
+          2002                                   17059   
+          2003                                   19806   
+          2004                                   23173   
+          2005                                   23177   
+          2006                                   24319   
+          2007                                   28549   
+          2008                                   31201   
+          2009                               30,739      
+          2010                                   33956   
+          
+          Table   Gross Domestic Product at market  prices Export oriented enterprises 1  
+          1999                                      109400                         11508  
+          2000                                      122410                         12263  
+          2001                                      134392                         13441  
+          2002                                      145055                         13322  
+          2003                                      162291                         13079  
+          2004                                      180908                         13233  
+          2005                                      191393                         13004  
+          2006                                      213444                         15208  
+          2007                                      243998                         17795  
+          2008                                      274316                         17839  
+          2009                                  282,354                        17,413     
+          2010                                      298784                         17334  
+          
+          [12 rows x 31 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}346}]:} \PY{n}{col\PYZus{}list2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agriculture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mining}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manufacturing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{power}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{government}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sevices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp\PYZus{}market\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}99\PYZus{}t}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{col\PYZus{}list2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}347}]:} \PY{n}{df\PYZus{}99\PYZus{}t}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df\PYZus{}99\PYZus{}t}
+          \PY{n}{df\PYZus{}99\PYZus{}t}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}347}]:} (12, 7)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}348}]:} \PY{n}{df\PYZus{}76} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GDP\PYZus{}76\PYZus{}98.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thousands}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}76} \PY{o}{=} \PY{n}{df\PYZus{}76}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}76} \PY{o}{=} \PY{n}{df\PYZus{}76}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GROSS DOMESTIC PRODUCT BY INDUSTRY GROUP AT CURRENT PRICES (RS MN),1976 \PYZhy{} 1998}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}76} \PY{o}{=} \PY{n}{df\PYZus{}76}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}76} \PY{o}{=} \PY{n}{df\PYZus{}76}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1976}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1977}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1978}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1979}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1980}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1981}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1982}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1983}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1984}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1985}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1986}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1987}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 13}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1988}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 14}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1989}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1990}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 16}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1991}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 17}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 18}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1993}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 19}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1994}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 20}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1995}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 21}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1996}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 22}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1997}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 23}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1998}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}76\PYZus{}t} \PY{o}{=} \PY{n}{df\PYZus{}76}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INDUSTRY GROUP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}76\PYZus{}t} \PY{o}{=} \PY{n}{df\PYZus{}76\PYZus{}t}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}76\PYZus{}t}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}348}]:} Table  AGRICULTURE, HUNTING, FORESTRY, AND FISHING      SUGAR      OTHER  \textbackslash{}
+          1976                                         938.0      741.0      197.0   
+          1977                                         939.0      701.0      238.0   
+          1978                                         977.0      729.0      248.0   
+          1979                                        1224.0      953.0      271.0   
+          1980                                         914.0      598.0      316.0   
+          1981                                        1257.0      899.0      358.0   
+          1982                                        1530.0     1140.0      390.0   
+          1983                                        1465.0     1010.0      455.0   
+          1984                                        1736.0     1166.0      570.0   
+          1985                                        2123.0     1538.0      585.0   
+          1986                                        2510.0     1905.0      605.0   
+          1987                                        2941.0     2124.0      817.0   
+          1988                                        3140.0     2177.0      963.0   
+          1989                                        3461.0     2355.0     1106.0   
+          1990                                        3998.0     2675.0     1323.0   
+          1991                                        4206.0     2658.0     1548.0   
+          1992                                        4590.0     2907.0     1683.0   
+          1993                                        4670.0     2740.0     1930.0   
+          1994                                        4960.0     2855.0     2105.0   
+          1995                                        5860.0     3573.0     2287.0   
+          1996                                        6592.0     4217.0     2375.0   
+          1997                                        6650.0     4179.0     2471.0   
+          1998                                        7328.0     4844.0     2484.0   
+          
+          Table  MINING AND QUARRYING  MANUFACTURING      SUGAR      EPZ       OTHER  \textbackslash{}
+          1976                    7.0          631.0      228.0     108.0      295.0   
+          1977                    9.0          699.0      209.0     130.0      360.0   
+          1978                   11.0          801.0      218.0     156.0      427.0   
+          1979                   12.0          972.0      276.0     223.0      473.0   
+          1980                   15.0         1127.0      178.0     321.0      628.0   
+          1981                   16.0         1377.0      251.0     421.0      705.0   
+          1982                   17.0         1560.0      313.0     449.0      798.0   
+          1983                   18.0         1678.0      265.0     548.0      865.0   
+          1984                   19.0         2183.0      326.0     865.0      992.0   
+          1985                   20.0         2864.0      438.0    1333.0     1093.0   
+          1986                   22.0         3830.0      605.0    1900.0     1325.0   
+          1987                   26.0         4976.0      676.0    2585.0     1715.0   
+          1988                   32.0         5847.0      597.0    3125.0     2125.0   
+          1989                   40.0         6648.0      652.0    3400.0     2596.0   
+          1990                   50.0         7784.0      720.0    3975.0     3089.0   
+          1991                   60.0         8766.0      727.0    4406.0     3633.0   
+          1992                   70.0         9952.0      821.0    5011.0     4120.0   
+          1993                   80.0        11188.0      773.0    5705.0     4710.0   
+          1994                   90.0        12686.0      810.0    6373.0     5503.0   
+          1995                  100.0        14383.0     1010.0    7096.0     6277.0   
+          1996                  110.0        16455.0     1207.0    8163.0     7085.0   
+          1997                  119.0        18247.0     1247.0    9128.0     7872.0   
+          1998                  127.0        21011.0     1543.0   10441.0     9027.0   
+          
+          Table  ELECTRICITY,GAS AND WATER  CONSTRUCTION              {\ldots}               \textbackslash{}
+          1976                        70.0         333.0              {\ldots}                
+          1977                        99.0         406.0              {\ldots}                
+          1978                       118.0         506.0              {\ldots}                
+          1979                       161.0         552.0              {\ldots}                
+          1980                       209.0         561.0              {\ldots}                
+          1981                       188.0         588.0              {\ldots}                
+          1982                       260.0         625.0              {\ldots}                
+          1983                       245.0         655.0              {\ldots}                
+          1984                       296.0         690.0              {\ldots}                
+          1985                       397.0         775.0              {\ldots}                
+          1986                       462.0         880.0              {\ldots}                
+          1987                       490.0        1090.0              {\ldots}                
+          1988                       517.0        1410.0              {\ldots}                
+          1989                       577.0        1790.0              {\ldots}                
+          1990                       507.0        2285.0              {\ldots}                
+          1991                       775.0        2680.0              {\ldots}                
+          1992                       950.0        3065.0              {\ldots}                
+          1993                      1205.0        3548.0              {\ldots}                
+          1994                      1297.0        4032.0              {\ldots}                
+          1995                      1514.0        4082.0              {\ldots}                
+          1996                      1535.0        4461.0              {\ldots}                
+          1997                      1385.0        4615.0              {\ldots}                
+          1998                      1253.0        5098.0              {\ldots}                
+          
+          Table  TRANSPORT,STORAGE \&COMMUNICATION  \textbackslash{}
+          1976                              356.0   
+          1977                              447.0   
+          1978                              563.0   
+          1979                              653.0   
+          1980                              837.0   
+          1981                              997.0   
+          1982                             1112.0   
+          1983                             1230.0   
+          1984                             1372.0   
+          1985                             1510.0   
+          1986                             1775.0   
+          1987                             2097.0   
+          1988                             2390.0   
+          1989                             2981.0   
+          1990                             3526.0   
+          1991                             4246.0   
+          1992                             4863.0   
+          1993                             5563.0   
+          1994                             6400.0   
+          1995                             7250.0   
+          1996                             7720.0   
+          1997                             9228.0   
+          1998                            10604.0   
+          
+          Table  FINANCING,INSURANCE,REAL ESTATE \&BUSINESS SERVICES  \textbackslash{}
+          1976                                               664.0    
+          1977                                               746.0    
+          1978                                               893.0    
+          1979                                              1045.0    
+          1980                                              1309.0    
+          1981                                              1517.0    
+          1982                                              1755.0    
+          1983                                              1890.0    
+          1984                                              2050.0    
+          1985                                              2190.0    
+          1986                                              2335.0    
+          1987                                              3001.0    
+          1988                                              3452.0    
+          1989                                              4117.0    
+          1990                                              5015.0    
+          1991                                              5699.0    
+          1992                                              6573.0    
+          1993                                              7572.0    
+          1994                                              8747.0    
+          1995                                             10178.0    
+          1996                                             11195.0    
+          1997                                             12701.0    
+          1998                                             14737.0    
+          
+          Table      OWNERSHIP OF DWELLINGS       FINANCIAL INSTITUTIONS   \textbackslash{}
+          1976                        427.0                          62.0   
+          1977                        515.0                          75.0   
+          1978                        635.0                          89.0   
+          1979                        759.0                          84.0   
+          1980                        938.0                         126.0   
+          1981                       1085.0                         160.0   
+          1982                       1270.0                         188.0   
+          1983                       1360.0                         206.0   
+          1984                       1460.0                         235.0   
+          1985                       1535.0                         246.0   
+          1986                       1580.0                         297.0   
+          1987                       1644.0                         696.0   
+          1988                       1751.0                         905.0   
+          1989                       1940.0                        1212.0   
+          1990                       2155.0                        1575.0   
+          1991                       2339.0                        1838.0   
+          1992                       2550.0                        2188.0   
+          1993                       2811.0                        2612.0   
+          1994                       3069.0                        3020.0   
+          1995                       3302.0                        3502.0   
+          1996                       3555.0                        3845.0   
+          1997                       3805.0                        4410.0   
+          1998                       4080.0                        5515.0   
+          
+          Table      INSURANCE  \& OTHER BUSINESS SERVICES  \textbackslash{}
+          1976                                      175.0   
+          1977                                      156.0   
+          1978                                      169.0   
+          1979                                      202.0   
+          1980                                      245.0   
+          1981                                      272.0   
+          1982                                      297.0   
+          1983                                      324.0   
+          1984                                      355.0   
+          1985                                      409.0   
+          1986                                      458.0   
+          1987                                      661.0   
+          1988                                      796.0   
+          1989                                      965.0   
+          1990                                     1285.0   
+          1991                                     1522.0   
+          1992                                     1835.0   
+          1993                                     2149.0   
+          1994                                     2658.0   
+          1995                                     3374.0   
+          1996                                     3795.0   
+          1997                                     4485.0   
+          1998                                     5142.0   
+          
+          Table  PRODUCERS OF GOVERNMENT SERVICES  \textbackslash{}
+          1976                              497.0   
+          1977                              615.0   
+          1978                              705.0   
+          1979                              793.0   
+          1980                              952.0   
+          1981                             1104.0   
+          1982                             1275.0   
+          1983                             1327.0   
+          1984                             1379.0   
+          1985                             1447.0   
+          1986                             1560.0   
+          1987                             2130.0   
+          1988                             2795.0   
+          1989                             3106.0   
+          1990                             3398.0   
+          1991                             3792.0   
+          1992                             4160.0   
+          1993                             5021.0   
+          1994                             6023.0   
+          1995                             6425.0   
+          1996                             7260.0   
+          1997                             7952.0   
+          1998                             8810.0   
+          
+          Table  COMMUNITY, SOCIAL \& PERSONAL  SERVICES  GROSS DOMESTIC PRODUCT (F.C)  \textbackslash{}
+          1976                                    197.0                        4165.0   
+          1977                                    241.0                        4776.0   
+          1978                                    290.0                        5494.0   
+          1979                                    349.0                        6540.0   
+          1980                                    415.0                        7389.0   
+          1981                                    502.0                        8765.0   
+          1982                                    596.0                       10020.0   
+          1983                                    650.0                       10613.0   
+          1984                                    685.0                       12050.0   
+          1985                                    720.0                       13880.0   
+          1986                                    776.0                       16450.0   
+          1987                                    940.0                       20341.0   
+          1988                                   1120.0                       24061.0   
+          1989                                   1384.0                       28083.0   
+          1990                                   1715.0                       33030.0   
+          1991                                   2061.0                       37553.0   
+          1992                                   2382.0                       42393.0   
+          1993                                   2757.0                       48186.0   
+          1994                                   3286.0                       54848.0   
+          1995                                   3600.0                       61489.0   
+          1996                                   4064.0                       69030.0   
+          1997                                   4574.0                       76149.0   
+          1998                                   5246.0                       86304.0   
+          
+          Table  NET INDIRECT TAXES  GROSS DOMESTIC PRODUCT (M.P)  
+          1976                539.0                        4704.0  
+          1977                666.0                        5442.0  
+          1978                764.0                        6258.0  
+          1979               1100.0                        7640.0  
+          1980               1308.0                        8697.0  
+          1981               1444.0                       10209.0  
+          1982               1705.0                       11725.0  
+          1983               2150.0                       12763.0  
+          1984               2310.0                       14360.0  
+          1985               2738.0                       16618.0  
+          1986               3250.0                       19700.0  
+          1987               3881.0                       24222.0  
+          1988               4622.0                       28683.0  
+          1989               5191.0                       33274.0  
+          1990               6245.0                       39275.0  
+          1991               6763.0                       44316.0  
+          1992               7346.0                       49739.0  
+          1993               8503.0                       56689.0  
+          1994               8671.0                       63519.0  
+          1995               8499.0                       69988.0  
+          1996               9330.0                       78360.0  
+          1997              11093.0                       87242.0  
+          1998              12836.0                       99140.0  
+          
+          [23 rows x 23 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}349}]:} \PY{n}{df\PYZus{}76\PYZus{}t}\PY{o}{.}\PY{n}{columns}
+          \PY{n}{col\PYZus{}list3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agriculture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mining}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manufacturing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{power}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{government}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sevices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp\PYZus{}market\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}76\PYZus{}t}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{col\PYZus{}list3}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}350}]:} \PY{n}{df\PYZus{}76\PYZus{}t}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df\PYZus{}76\PYZus{}t}  
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}350}]:}       agriculture  mining  manufacturing   power  government  sevices  \textbackslash{}
+          1976        938.0     7.0          631.0   228.0       333.0    197.0   
+          1977        939.0     9.0          699.0   209.0       406.0    241.0   
+          1978        977.0    11.0          801.0   218.0       506.0    290.0   
+          1979       1224.0    12.0          972.0   276.0       552.0    349.0   
+          1980        914.0    15.0         1127.0   178.0       561.0    415.0   
+          1981       1257.0    16.0         1377.0   251.0       588.0    502.0   
+          1982       1530.0    17.0         1560.0   313.0       625.0    596.0   
+          1983       1465.0    18.0         1678.0   265.0       655.0    650.0   
+          1984       1736.0    19.0         2183.0   326.0       690.0    685.0   
+          1985       2123.0    20.0         2864.0   438.0       775.0    720.0   
+          1986       2510.0    22.0         3830.0   605.0       880.0    776.0   
+          1987       2941.0    26.0         4976.0   676.0      1090.0    940.0   
+          1988       3140.0    32.0         5847.0   597.0      1410.0   1120.0   
+          1989       3461.0    40.0         6648.0   652.0      1790.0   1384.0   
+          1990       3998.0    50.0         7784.0   720.0      2285.0   1715.0   
+          1991       4206.0    60.0         8766.0   727.0      2680.0   2061.0   
+          1992       4590.0    70.0         9952.0   821.0      3065.0   2382.0   
+          1993       4670.0    80.0        11188.0   773.0      3548.0   2757.0   
+          1994       4960.0    90.0        12686.0   810.0      4032.0   3286.0   
+          1995       5860.0   100.0        14383.0  1010.0      4082.0   3600.0   
+          1996       6592.0   110.0        16455.0  1207.0      4461.0   4064.0   
+          1997       6650.0   119.0        18247.0  1247.0      4615.0   4574.0   
+          1998       7328.0   127.0        21011.0  1543.0      5098.0   5246.0   
+          
+                gdp\_market\_price  
+          1976            4165.0  
+          1977            4776.0  
+          1978            5494.0  
+          1979            6540.0  
+          1980            7389.0  
+          1981            8765.0  
+          1982           10020.0  
+          1983           10613.0  
+          1984           12050.0  
+          1985           13880.0  
+          1986           16450.0  
+          1987           20341.0  
+          1988           24061.0  
+          1989           28083.0  
+          1990           33030.0  
+          1991           37553.0  
+          1992           42393.0  
+          1993           48186.0  
+          1994           54848.0  
+          1995           61489.0  
+          1996           69030.0  
+          1997           76149.0  
+          1998           86304.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}351}]:} \PY{n}{df\PYZus{}48} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GDP\PYZus{}48\PYZus{}75.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thousands}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}48} \PY{o}{=} \PY{n}{df\PYZus{}48}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}48} \PY{o}{=} \PY{n}{df\PYZus{}48}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table 1 \PYZhy{} Gross Domestic Product by Industrial Origin at current factor cost, 1948 \PYZhy{} 1975}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}48} \PY{o}{=} \PY{n}{df\PYZus{}48}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}48} \PY{o}{=} \PY{n}{df\PYZus{}48}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1948}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1949}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1950}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1951}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1952}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1953}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1954}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1955}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1956}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1957}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1958}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1959}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 13}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1960}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 14}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1961}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1962}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 16}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1963}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 17}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1964}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 18}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1965}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 19}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1966}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 20}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1967}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 21}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1968}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 22}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1969}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 23}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1970}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1971}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 25}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1972}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 26}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1973}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 27}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1974}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 28}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1975}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}48\PYZus{}t} \PY{o}{=} \PY{n}{df\PYZus{}48}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}48\PYZus{}t}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}351}]:} Table Agriculture, forestry, hunting and fishing  Mining and quarrying  \textbackslash{}
+          1948                                          {\ldots}                  {\ldots}   
+          1949                                          {\ldots}                  {\ldots}   
+          1950                                          129                    0   
+          1951                                          145                    0   
+          1952                                          156                    0   
+          1953                                          177                    1   
+          1954                                          170                    1   
+          1955                                          179                    1   
+          1956                                          200                    1   
+          1957                                          200                    1   
+          1958                                          188                    1   
+          1959                                          200                    1   
+          1960                                          128                    1   
+          1961                                          182                    1   
+          1962                                          174                    1   
+          1963                                          296                    1   
+          1964                                          180                    1   
+          1965                                          209                    1   
+          1966                                          199                    1   
+          1967                                          214                    1   
+          1968                                          203                    1   
+          1969                                          235                    1   
+          1970                                          222                    1   
+          1971                                          262                    1   
+          1972                                          353                    2   
+          1973                                          494                    2   
+          1974                                        1,323                    2   
+          1975                                         1034                    4   
+          
+          Table Manufacturing Construction  \textbackslash{}
+          1948            {\ldots}          {\ldots}   
+          1949            {\ldots}          {\ldots}   
+          1950             95           17   
+          1951            109           20   
+          1952            122           23   
+          1953            108           27   
+          1954            106           27   
+          1955            109           26   
+          1956            120           26   
+          1957            115           29   
+          1958            102           30   
+          1959            114           32   
+          1960             75           65   
+          1961            111           52   
+          1962            115           52   
+          1963            176           49   
+          1964            119           53   
+          1965            133           55   
+          1966            125           52   
+          1967            134           59   
+          1968            128           49   
+          1969            147           46   
+          1970            146           48   
+          1971            168           60   
+          1972            233           73   
+          1973            277          114   
+          1974            505          155   
+          1975            564          217   
+          
+          Table Electricity, gas, water and sanitary services  \textbackslash{}
+          1948                                            {\ldots}   
+          1949                                            {\ldots}   
+          1950                                              5   
+          1951                                              7   
+          1952                                             10   
+          1953                                              7   
+          1954                                              7   
+          1955                                              8   
+          1956                                              8   
+          1957                                              8   
+          1958                                              9   
+          1959                                             12   
+          1960                                             12   
+          1961                                             14   
+          1962                                             17   
+          1963                                             21   
+          1964                                             22   
+          1965                                             23   
+          1966                                             22   
+          1967                                             30   
+          1968                                             30   
+          1969                                             30   
+          1970                                             29   
+          1971                                             34   
+          1972                                             39   
+          1973                                             43   
+          1974                                             49   
+          1975                                             69   
+          
+          Table Transportation, storage and communication Wholesale and retail trade  \textbackslash{}
+          1948                                        {\ldots}                        {\ldots}   
+          1949                                        {\ldots}                        {\ldots}   
+          1950                                         46                         42   
+          1951                                         56                         48   
+          1952                                         62                         56   
+          1953                                         54                         64   
+          1954                                         58                         57   
+          1955                                         60                         63   
+          1956                                         61                         62   
+          1957                                         68                         68   
+          1958                                         68                         71   
+          1959                                         72                         67   
+          1960                                         71                         67   
+          1961                                         78                         72   
+          1962                                         84                         72   
+          1963                                         92                         81   
+          1964                                         95                         86   
+          1965                                        102                         87   
+          1966                                         99                         84   
+          1967                                        100                         89   
+          1968                                        102                         92   
+          1969                                        105                         91   
+          1970                                        108                         91   
+          1971                                        114                         94   
+          1972                                        129                        127   
+          1973                                        161                        172   
+          1974                                        195                        221   
+          1975                                        281                        279   
+          
+          Table Banking, insurance \& real estate Ownership of dwellings  \textbackslash{}
+          1948                               {\ldots}                    {\ldots}   
+          1949                               {\ldots}                    {\ldots}   
+          1950                                 4                     34   
+          1951                                 5                     34   
+          1952                                 6                     36   
+          1953                                 7                     40   
+          1954                                 7                     42   
+          1955                                 7                     44   
+          1956                                 9                     46   
+          1957                                 9                     48   
+          1958                                10                     49   
+          1959                                10                     50   
+          1960                                11                     44   
+          1961                                12                     52   
+          1962                                12                     55   
+          1963                                14                     57   
+          1964                                16                     59   
+          1965                                16                     61   
+          1966                                16                     63   
+          1967                                17                     65   
+          1968                                16                     66   
+          1969                                18                     68   
+          1970                                20                     70   
+          1971                                18                     71   
+          1972                                22                     74   
+          1973                                31                     77   
+          1974                                44                     83   
+          1975                                66                     94   
+          
+          Table Public administration and defence   Services  \textbackslash{}
+          1948                                {\ldots}        {\ldots}   
+          1949                                {\ldots}        {\ldots}   
+          1950                                  9         34   
+          1951                                 11         38   
+          1952                                 14         44   
+          1953                                 17         43   
+          1954                                 18         44   
+          1955                                 20         46   
+          1956                                 21         50   
+          1957                                 22         55   
+          1958                                 25         61   
+          1959                                 28         65   
+          1960                                 28         70   
+          1961                                 30         75   
+          1962                                 32         80   
+          1963                                 34         85   
+          1964                                 38         91   
+          1965                                 42         94   
+          1966                                 45         99   
+          1967                                 43        104   
+          1968                                 44        110   
+          1969                                 46        116   
+          1970                                 51        126   
+          1971                                 53        141   
+          1972                                 61        166   
+          1973                                 76        203   
+          1974                                105        259   
+          1975                                140        342   
+          
+          Table Gross Domestic Product at factor cost   \textbackslash{}
+          1948                                     305   
+          1949                                     350   
+          1950                                     415   
+          1951                                     473   
+          1952                                     529   
+          1953                                     545   
+          1954                                     537   
+          1955                                     563   
+          1956                                     604   
+          1957                                     623   
+          1958                                     614   
+          1959                                     651   
+          1960                                     572   
+          1961                                     679   
+          1962                                     694   
+          1963                                     906   
+          1964                                     760   
+          1965                                     823   
+          1966                                     805   
+          1967                                     856   
+          1968                                     841   
+          1969                                     903   
+          1970                                     912   
+          1971                                    1016   
+          1972                                    1279   
+          1973                                    1650   
+          1974                                   2,941   
+          1975                                    3090   
+          
+          Table Indirect taxes (net of subsidies)  \textbackslash{}
+          1948                                {\ldots}   
+          1949                                {\ldots}   
+          1950                                 30   
+          1951                                 36   
+          1952                                 43   
+          1953                                 49   
+          1954                                 53   
+          1955                                 55   
+          1956                                 57   
+          1957                                 60   
+          1958                                 64   
+          1959                                 72   
+          1960                                 81   
+          1961                                 93   
+          1962                                101   
+          1963                                114   
+          1964                                122   
+          1965                                118   
+          1966                                123   
+          1967                                131   
+          1968                                141   
+          1969                                150   
+          1970                                155   
+          1971                                169   
+          1972                                167   
+          1973                                197   
+          1974                                275   
+          1975                                326   
+          
+          Table Gross Domestic Product at market prices  \textbackslash{}
+          1948                                      {\ldots}   
+          1949                                      {\ldots}   
+          1950                                      445   
+          1951                                      509   
+          1952                                      572   
+          1953                                      594   
+          1954                                      590   
+          1955                                      618   
+          1956                                      661   
+          1957                                      683   
+          1958                                      678   
+          1959                                      723   
+          1960                                      653   
+          1961                                      772   
+          1962                                      795   
+          1963                                    1,020   
+          1964                                      882   
+          1965                                      941   
+          1966                                      928   
+          1967                                      987   
+          1968                                      982   
+          1969                                     1053   
+          1970                                     1067   
+          1971                                     1185   
+          1972                                     1446   
+          1973                                     1847   
+          1974                                    3,216   
+          1975                                     3416   
+          
+          Table Net factor income from rest of the world  \textbackslash{}
+          1948                                       {\ldots}   
+          1949                                       {\ldots}   
+          1950                                        10   
+          1951                                         9   
+          1952                                         7   
+          1953                                         6   
+          1954                                        10   
+          1955                                         8   
+          1956                                         -   
+          1957                                         -   
+          1958                                         -   
+          1959                                         2   
+          1960                                         4   
+          1961                                        -5   
+          1962                                        -4   
+          1963                                        -6   
+          1964                                        -2   
+          1965                                        -6   
+          1966                                        -1   
+          1967                                        -5   
+          1968                                        -3   
+          1969                                         1   
+          1970                                         7   
+          1971                                         7   
+          1972                                         2   
+          1973                                        16   
+          1974                                        10   
+          1975                                        16   
+          
+          Table Gross National Product at market prices   
+          1948                                       {\ldots}  
+          1949                                       {\ldots}  
+          1950                                       455  
+          1951                                       518  
+          1952                                       579  
+          1953                                       600  
+          1954                                       600  
+          1955                                       626  
+          1956                                       661  
+          1957                                       683  
+          1958                                       678  
+          1959                                       725  
+          1960                                       657  
+          1961                                       767  
+          1962                                       791  
+          1963                                     1,014  
+          1964                                       880  
+          1965                                       935  
+          1966                                       927  
+          1967                                       982  
+          1968                                       979  
+          1969                                      1054  
+          1970                                      1074  
+          1971                                      1192  
+          1972                                      1448  
+          1973                                      1863  
+          1974                                     3,226  
+          1975                                      3432  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}352}]:} \PY{n}{col\PYZus{}list4} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agriculture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mining}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manufacturing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{power}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{government}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sevices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdp\PYZus{}market\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}48\PYZus{}t}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{col\PYZus{}list4}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}353}]:} \PY{n}{df\PYZus{}48\PYZus{}t}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df\PYZus{}48\PYZus{}t}  
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}353}]:}      agriculture     mining manufacturing      power government    sevices  \textbackslash{}
+          1948         {\ldots}        {\ldots}           {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          1949         {\ldots}        {\ldots}           {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          1950         129         95            17         46          4         30   
+          1951         145        109            20         56          5         36   
+          1952         156        122            23         62          6         43   
+          1953         177        108            27         54          7         49   
+          1954         170        106            27         58          7         53   
+          1955         179        109            26         60          7         55   
+          1956         200        120            26         61          9         57   
+          1957         200        115            29         68          9         60   
+          1958         188        102            30         68         10         64   
+          1959         200        114            32         72         10         72   
+          1960         128         75            65         71         11         81   
+          1961         182        111            52         78         12         93   
+          1962         174        115            52         84         12        101   
+          1963         296        176            49         92         14        114   
+          1964         180        119            53         95         16        122   
+          1965         209        133            55        102         16        118   
+          1966         199        125            52         99         16        123   
+          1967         214        134            59        100         17        131   
+          1968         203        128            49        102         16        141   
+          1969         235        147            46        105         18        150   
+          1970         222        146            48        108         20        155   
+          1971         262        168            60        114         18        169   
+          1972         353        233            73        129         22        167   
+          1973         494        277           114        161         31        197   
+          1974       1,323        505           155        195         44        275   
+          1975        1034        564           217        281         66        326   
+          
+               gdp\_market\_price  
+          1948              {\ldots}  
+          1949              {\ldots}  
+          1950              445  
+          1951              509  
+          1952              572  
+          1953              594  
+          1954              590  
+          1955              618  
+          1956              661  
+          1957              683  
+          1958              678  
+          1959              723  
+          1960              653  
+          1961              772  
+          1962              795  
+          1963            1,020  
+          1964              882  
+          1965              941  
+          1966              928  
+          1967              987  
+          1968              982  
+          1969             1053  
+          1970             1067  
+          1971             1185  
+          1972             1446  
+          1973             1847  
+          1974            3,216  
+          1975             3416  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}354}]:} \PY{n}{df\PYZus{}GDP} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}48\PYZus{}t}\PY{p}{,} \PY{n}{df\PYZus{}76\PYZus{}t}\PY{p}{,} \PY{n}{df\PYZus{}99\PYZus{}t}\PY{p}{,} \PY{n}{df\PYZus{}2006\PYZus{}t}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}GDP}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}354}]:}      agriculture     mining manufacturing      power government    sevices  \textbackslash{}
+          1948         {\ldots}        {\ldots}           {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          1949         {\ldots}        {\ldots}           {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          1950         129         95            17         46          4         30   
+          1951         145        109            20         56          5         36   
+          1952         156        122            23         62          6         43   
+          1953         177        108            27         54          7         49   
+          1954         170        106            27         58          7         53   
+          1955         179        109            26         60          7         55   
+          1956         200        120            26         61          9         57   
+          1957         200        115            29         68          9         60   
+          1958         188        102            30         68         10         64   
+          1959         200        114            32         72         10         72   
+          1960         128         75            65         71         11         81   
+          1961         182        111            52         78         12         93   
+          1962         174        115            52         84         12        101   
+          1963         296        176            49         92         14        114   
+          1964         180        119            53         95         16        122   
+          1965         209        133            55        102         16        118   
+          1966         199        125            52         99         16        123   
+          1967         214        134            59        100         17        131   
+          1968         203        128            49        102         16        141   
+          1969         235        147            46        105         18        150   
+          1970         222        146            48        108         20        155   
+          1971         262        168            60        114         18        169   
+          1972         353        233            73        129         22        167   
+          1973         494        277           114        161         31        197   
+          1974       1,323        505           155        195         44        275   
+          1975        1034        564           217        281         66        326   
+          1976         938          7           631        228        333        197   
+          1977         939          9           699        209        406        241   
+          {\ldots}          {\ldots}        {\ldots}           {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          1992        4590         70          9952        821       3065       2382   
+          1993        4670         80         11188        773       3548       2757   
+          1994        4960         90         12686        810       4032       3286   
+          1995        5860        100         14383       1010       4082       3600   
+          1996        6592        110         16455       1207       4461       4064   
+          1997        6650        119         18247       1247       4615       4574   
+          1998        7328        127         21011       1543       5098       5246   
+          1999        5466        159         22043       1368       6095       3127   
+          2000        6984        163         24171       1760       6693       3484   
+          2001        8262        156         26934       2578       7132       3776   
+          2002        7530         99         27654       2947       7764       4250   
+          2003        8403         88         29260       3368       8991       4771   
+          2004        9545         90         31725       3505      10098       5378   
+          2005        9527         88         32331       3228      10908       6035   
+          2006        9759         85         36818       3239      11650       7013   
+          2007        9653         79         41409       3321      12041       8240   
+          2008        9942        108         47128       4590      13780       9805   
+          2009    9,800        101        47,325      5,398     15,322     10,857      
+          2010        9677        107         47764       5401      16159      12050   
+          2006        9521        832         35268       2528      11650       2738   
+          2007        9464        880         39462       2623      12041       3182   
+          2008        9714       1038         44817       3947      13780       3645   
+          2009        9539       1040         44908       4786      15322       3870   
+          2010        9438       1173         45180       4729      16159       4355   
+          2011       10253       1041         48182       4491      17189       5021   
+          2012       10494       1000         50537       4092      17984       5566   
+          2013       10405        990         55021       4491      21283       6119   
+          2014       10853        975         56458       5288      22784       6644   
+          2015   10,308        970        57,629      5,320     23,705      7,039      
+          2016   10,873      1,019        60,091      5,856     26,435      7,526      
+          
+               gdp\_market\_price  
+          1948              {\ldots}  
+          1949              {\ldots}  
+          1950              445  
+          1951              509  
+          1952              572  
+          1953              594  
+          1954              590  
+          1955              618  
+          1956              661  
+          1957              683  
+          1958              678  
+          1959              723  
+          1960              653  
+          1961              772  
+          1962              795  
+          1963            1,020  
+          1964              882  
+          1965              941  
+          1966              928  
+          1967              987  
+          1968              982  
+          1969             1053  
+          1970             1067  
+          1971             1185  
+          1972             1446  
+          1973             1847  
+          1974            3,216  
+          1975             3416  
+          1976             4165  
+          1977             4776  
+          {\ldots}               {\ldots}  
+          1992            42393  
+          1993            48186  
+          1994            54848  
+          1995            61489  
+          1996            69030  
+          1997            76149  
+          1998            86304  
+          1999           109400  
+          2000           122410  
+          2001           134392  
+          2002           145055  
+          2003           162291  
+          2004           180908  
+          2005           191393  
+          2006           213444  
+          2007           243998  
+          2008           274316  
+          2009       282,354     
+          2010           298784  
+          2006           213444  
+          2007           243998  
+          2008           274316  
+          2009           282354  
+          2010           299171  
+          2011           323310  
+          2012           343942  
+          2013           366325  
+          2014           386229  
+          2015       403,536     
+          2016       431,823     
+          
+          [74 rows x 7 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}360}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}GDP = df\PYZus{}GDP.drop([\PYZsq{}1948\PYZsq{}, \PYZsq{}1949\PYZsq{}], axis = 0)}
+          \PY{n}{df\PYZus{}GDP} \PY{o}{=} \PY{n}{df\PYZus{}GDP}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}GDP} \PY{o}{=} \PY{n}{df\PYZus{}GDP}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}GDP}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-360-8ae5fc97336c> in <module>()
+          1 \#df\_GDP = df\_GDP.drop(['1948', '1949'], axis = 0)
+          2 df\_GDP = df\_GDP.replace(',', '')
+    ----> 3 df\_GDP = df\_GDP.float()
+          4 df\_GDP
+
+
+        \textasciitilde{}/miniconda3/lib/python3.6/site-packages/pandas/core/generic.py in \_\_getattr\_\_(self, name)
+       4370             if self.\_info\_axis.\_can\_hold\_identifiers\_and\_holds\_name(name):
+       4371                 return self[name]
+    -> 4372             return object.\_\_getattribute\_\_(self, name)
+       4373 
+       4374     def \_\_setattr\_\_(self, name, value):
+
+
+        AttributeError: 'DataFrame' object has no attribute 'float'
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
